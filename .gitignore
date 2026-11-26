@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# 上面的 *.obj 只针对编译器中间文件,这里放行 OpenGL 模型资源
+!Project1/cube.obj
