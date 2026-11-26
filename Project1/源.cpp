@@ -1,7 +1,7 @@
 #include <glad/glad.h>
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include"shaderr.cpp"
+#include"shaderr.h"
 #include <stb_image.h>
 #include"myimage.cpp"
 #include <glm/glm.hpp>

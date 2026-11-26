@@ -1,7 +1,7 @@
-﻿#include <glad/glad.h>
+﻿/*#include <glad/glad.h>
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include"shaderr.cpp"
+#include"shaderr.h"
 #include <stb_image.h>
 #include"myimage.cpp"
 #include <glm/glm.hpp>
@@ -12,7 +12,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include"model.cpp"
-
+#include"game.cpp"
 float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
      0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -125,11 +125,6 @@ int main()
     Model ourModel("cube.obj");
 
     Shader shaderProgram("vertex", "fragmenttex");
-    /* glm::mat4 trans = glm::mat4(1.0f);
-     trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-     trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
-     unsigned int transformLoc = glGetUniformLocation(shaderProgram.ID, "transform");
-     glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));*/
     
     unsigned int VBO, VAO;
     glGenBuffers(1, &VBO);
@@ -221,18 +216,7 @@ int main()
         shaderProgram.setMat4("model", modelMat);
         ourModel.Draw(shaderProgram);
         
-        /*light.use();
-        light.setMat4("projection", proj);
-        light.setMat4("view", view);
         
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, lightPos);
-        model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-        light.setMat4("model", model);
-       
-        glBindVertexArray(lightVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-         */
 
         processInput(window);
         glfwSwapBuffers(window);
@@ -246,3 +230,4 @@ int main()
     glfwTerminate();
     return 0;
 }
+*/

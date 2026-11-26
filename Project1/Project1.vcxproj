@@ -19,22 +19,32 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="myimage.cpp" />
     <ClCompile Include="shaderr.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="源1.cpp" />
+    <ClCompile Include="源1.cpp">
+      <!-- Old monolithic version, kept for reference.
+           Excluded from the build because game.cpp now owns main(). -->
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="源2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragmenttex" />
     <None Include="lightfrag" />
     <None Include="vertex" />
+    <None Include="crosshair_fragment" />
+    <None Include="crosshair_vertex" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="model.cpp" />
+    <ClInclude Include="shaderr.h" />
+    <ClInclude Include="game.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg" />

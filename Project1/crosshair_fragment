@@ -1,0 +1,38 @@
+#version 330 core
+
+// The cross-hair is a signed distance field drawn inside one small quad:
+// a horizontal bar unioned with a vertical bar. Using a distance instead of
+// raw geometry means the edges can be smoothed with fwidth(), which gives
+// clean 1-pixel anti-aliasing at any resolution.
+//
+// It is drawn twice with different uThickness / uColor: once as a slightly
+// larger dark bar (the rim) and once as a thinner white bar on top (the core).
+// That keeps the cross-hair readable on both dark and light backgrounds.
+
+in vec2 vUV;              // -1..1 across the quad
+out vec4 FragColor;
+
+uniform float uThickness; // half thickness / half length
+uniform vec3  uColor;
+
+// distance to an axis-aligned box centred on the origin
+float boxSDF(vec2 p, vec2 halfSize)
+{
+    vec2 d = abs(p) - halfSize;
+    return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0);
+}
+
+void main()
+{
+    float t = uThickness;
+
+    // union of the two bars (negative inside, positive outside)
+    float d = min(boxSDF(vUV, vec2(1.0, t)),
+                  boxSDF(vUV, vec2(t, 1.0)));
+
+    // one pixel expressed in uv units, so the soft edge stays one pixel wide
+    float px = max(fwidth(d), 1e-5);
+    float alpha = 1.0 - smoothstep(-px, px, d);
+
+    FragColor = vec4(uColor, alpha);
+}

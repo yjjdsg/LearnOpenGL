@@ -10,7 +10,7 @@
 #include <assimp/postprocess.h>
 
 #include "mesh.cpp"
-#include "shaderr.cpp"
+#include "shaderr.h"
 
 #include <string>
 #include <cstring>
@@ -59,7 +59,9 @@ private:
             return;
         }
         // retrieve the directory path of the filepath
-        directory = path.substr(0, path.find_last_of('/'));
+        // (no separator -> load textures from the current working directory)
+        size_t slash = path.find_last_of("/\\");
+        directory = (slash == string::npos) ? string(".") : path.substr(0, slash);
 
         // process ASSIMP's root node recursively
         processNode(scene->mRootNode, scene);
@@ -203,7 +205,10 @@ private:
 };
 
 
-unsigned int TextureFromFile(const char* path, const string& directory, bool gamma)
+// inline: this header is included by more than one .cpp (game.cpp and the
+// legacy copy of the demo). Without inline every including translation unit
+// gets its own definition and the linker reports LNK2005 "already defined".
+inline unsigned int TextureFromFile(const char* path, const string& directory, bool gamma)
 {
     string filename = string(path);
     filename = directory + '/' + filename;
